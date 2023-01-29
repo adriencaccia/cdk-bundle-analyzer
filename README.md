@@ -74,3 +74,7 @@ cdk synth --quiet -c analyze=Health -c template=sunburst
 
 - The `NodeJsFunctionBundleAnalyzerAspect` will have no effect on the CDK app whatsoever. It will not change the behavior of the CDK app in any way. Moreover, the side-effect that generates the bundle analysis will only be executed if the `analyze` context variable is specified. Thus it is safe to add the aspect to the CDK app and commit it to the repository.
 - The `metafile` option is required to be set to `true` in the `NodejsFunction` construct. This is because the aspect needs to read the `esbuild` metafile to analyze the bundle. If committed, this means that the resulting metafile will be included in the lambda's deployment package. Its size is approximately the same as the bundle size. It is up to the user to decide if this is acceptable or not to commit.
+
+## Using the Serverless Framework instead of the CDK? 🤔
+
+No worries! Check out my plugin [serverless-analyze-bundle-plugin](https://github.com/adriencaccia/serverless-analyze-bundle-plugin) that does the same thing for the Serverless Framework 🚀
