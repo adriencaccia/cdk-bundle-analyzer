@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.2](https://github.com/adriencaccia/cdk-bundle-analyzer/compare/v0.0.1...v0.0.2) (2023-01-29)
+
+
+### Bug Fixes
+
+* remove useless tsbuildinfo from packaged files ([9815b7b](https://github.com/adriencaccia/cdk-bundle-analyzer/commit/9815b7b5093cc4a27e0440bc80f99cb305ee6aaf))
+
 ### 0.0.1 (2023-01-29)
 
 
