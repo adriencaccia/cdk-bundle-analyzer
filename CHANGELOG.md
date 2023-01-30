@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/adriencaccia/cdk-bundle-analyzer/compare/v0.0.2...v0.1.0) (2023-01-30)
+
+
+### Features
+
+* support custom NodejsFunction constructs ([a75e347](https://github.com/adriencaccia/cdk-bundle-analyzer/commit/a75e347f59b30e10ec8cfd2b1f377be65acd315d))
+
+
+### Bug Fixes
+
+* use cdk annotations for logs and errors ([f471cce](https://github.com/adriencaccia/cdk-bundle-analyzer/commit/f471ccea74c020128b2a97b57d3a9b87f4febccd))
+
 ### [0.0.2](https://github.com/adriencaccia/cdk-bundle-analyzer/compare/v0.0.1...v0.0.2) (2023-01-29)
 
 
