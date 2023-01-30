@@ -5,7 +5,7 @@ A library that delivers tools to analyze the bundle size of TypeScript/JavaScrip
 ## Prerequisites 📓
 
 1. Use the [`NodejsFunction` construct](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html) to define functions
-   - If using a custom construct that extends the `NodejsFunction` construct, refer to the [Custom `NodejsFunction` construct section](#custom-nodejsfunction-construct-🏗️)
+   - If using a custom construct that extends the `NodejsFunction` construct, refer to the [Custom `NodejsFunction` construct section](#custom-nodejsfunction-construct-%EF%B8%8F)
 2. Have [local bundling](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda_nodejs-readme.html#local-bundling) enabled. Basically, this means that the bundling of the lambdas is done on the machine, not inside a docker container. To achieve that, `esbuild` must be installed in the project. Follow the link above for more details.
 
 ## Usage 📦
