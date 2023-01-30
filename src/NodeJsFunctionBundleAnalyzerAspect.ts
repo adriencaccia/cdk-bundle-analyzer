@@ -9,17 +9,33 @@ import { tmpdir } from 'os';
 import { dirname, join } from 'path';
 
 /**
- * Return `true` if `node` is a `NodejsFunction` instance.
+ * Return `true` if `node` is a `NodejsFunction` instance or a custom function construct instance.
  *
  * We cannot use `instanceof` because the `NodejsFunction` class will be copied in the imported code.
  *
  * See https://stackoverflow.com/a/63937850
  */
-function isNodejsFunction(node: IConstruct): node is NodejsFunction {
-  return node.constructor.name === NodejsFunction.name;
+function isNodejsFunction(
+  node: IConstruct,
+  customFunctionConstructName?: string,
+): node is NodejsFunction {
+  return (
+    node.constructor.name === NodejsFunction.name ||
+    node.constructor.name === customFunctionConstructName
+  );
+}
+
+interface NodeJsFunctionBundleAnalyzerAspectProps {
+  customFunctionConstruct?: typeof NodejsFunction;
 }
 
 class NodeJsFunctionBundleAnalyzerAspect implements IAspect {
+  private customFunctionConstructName: string | undefined;
+
+  constructor({ customFunctionConstruct }: NodeJsFunctionBundleAnalyzerAspectProps) {
+    this.customFunctionConstructName = customFunctionConstruct?.prototype.constructor.name;
+  }
+
   async visit(node: IConstruct): Promise<void> {
     const functionToAnalyze = node.node.tryGetContext('analyze') as string | undefined;
     if (functionToAnalyze === undefined) {
@@ -33,18 +49,12 @@ class NodeJsFunctionBundleAnalyzerAspect implements IAspect {
       );
     }
 
-    if (isNodejsFunction(node)) {
-      const functionName = node
-        .toString()
-        .replace(node.stack.stackName, '')
-        .replace('Lambda', '')
-        .replace(/\//g, '');
-
-      if (functionName !== functionToAnalyze) {
+    if (isNodejsFunction(node, this.customFunctionConstructName)) {
+      if (!node.toString().includes(functionToAnalyze)) {
         return;
       }
 
-      console.log(`\n⏳ Analyzing function ${functionName}`);
+      console.log(`\n⏳ Analyzing function ${functionToAnalyze}`);
 
       const assetPath = (node.node.defaultChild as CfnFunction).cfnOptions.metadata?.[
         'aws:asset:path'
@@ -58,7 +68,7 @@ class NodeJsFunctionBundleAnalyzerAspect implements IAspect {
         });
       } catch (e) {
         console.error(
-          `\n🤯 Analyze failed: metafile ${metafilePath} not found. Did you set metafile: true in the bundling options of the ${functionName} NodejsFunction construct?\n`,
+          `\n🤯 Analyze failed: metafile ${metafilePath} not found. Did you set metafile: true in the bundling options of the ${functionToAnalyze} NodejsFunction construct?\n`,
         );
 
         throw new Error('Analyze failed');
@@ -67,14 +77,14 @@ class NodeJsFunctionBundleAnalyzerAspect implements IAspect {
       const jsonContent = JSON.parse(textContent) as Metadata;
 
       const fileContent = await visualizer(jsonContent, {
-        title: `${functionName} function bundle visualizer `,
+        title: `${functionToAnalyze} function bundle visualizer `,
         template: template ?? 'treemap',
       });
 
       const TMP_FOLDER = join(tmpdir(), 'cdk-bundle-analyzer');
       const TEMP_DIR_LOCATION = join(TMP_FOLDER, new Date().getTime().toString());
 
-      const filename = `${TEMP_DIR_LOCATION}/${functionName}.html`;
+      const filename = `${TEMP_DIR_LOCATION}/${functionToAnalyze}.html`;
 
       await fs.mkdir(dirname(filename), { recursive: true });
       await fs.writeFile(filename, fileContent);
