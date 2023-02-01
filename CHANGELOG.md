@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/adriencaccia/cdk-bundle-analyzer/compare/v0.1.0...v0.1.1) (2023-02-01)
+
+
+### Bug Fixes
+
+* allow empty constructor ([2b32e72](https://github.com/adriencaccia/cdk-bundle-analyzer/commit/2b32e72f58ab8149fdf5d618a7c7e4bd08d1d5ec))
+
 ## [0.1.0](https://github.com/adriencaccia/cdk-bundle-analyzer/compare/v0.0.2...v0.1.0) (2023-01-30)
 
 
