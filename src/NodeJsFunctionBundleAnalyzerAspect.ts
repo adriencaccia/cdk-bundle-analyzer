@@ -32,8 +32,8 @@ interface NodeJsFunctionBundleAnalyzerAspectProps {
 class NodeJsFunctionBundleAnalyzerAspect implements IAspect {
   private customFunctionConstructName: string | undefined;
 
-  constructor({ customFunctionConstruct }: NodeJsFunctionBundleAnalyzerAspectProps) {
-    this.customFunctionConstructName = customFunctionConstruct?.prototype.constructor.name;
+  constructor(props?: NodeJsFunctionBundleAnalyzerAspectProps) {
+    this.customFunctionConstructName = props?.customFunctionConstruct?.prototype.constructor.name;
   }
 
   async visit(node: IConstruct): Promise<void> {
