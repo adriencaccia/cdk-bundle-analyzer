@@ -40,7 +40,7 @@ new NodejsFunction(this, 'MyFunction', {
 Run the following command to analyze the bundle:
 
 ```bash
-cdk synth --quiet -c analyze=Health
+cdk synth --quiet -c analyze=MyFunction
 ```
 
 A browser window will open with the bundle size analysis 🎉
@@ -58,7 +58,7 @@ The name of the function to analyze. If not specified, no function will be analy
 Example:
 
 ```bash
-cdk synth --quiet -c analyze=Health
+cdk synth --quiet -c analyze=MyFunction
 ```
 
 ### `template`
@@ -68,7 +68,7 @@ The bundle template to use. Should be one of `sunburst`, `treemap`, `network`. D
 Example:
 
 ```bash
-cdk synth --quiet -c analyze=Health -c template=sunburst
+cdk synth --quiet -c analyze=MyFunction -c template=sunburst
 ```
 
 ## Custom `NodejsFunction` construct 🏗️
