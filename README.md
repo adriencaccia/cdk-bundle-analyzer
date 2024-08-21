@@ -33,7 +33,10 @@ Add the `metafile` option to the `NodejsFunction` to analyze:
 ```ts
 new NodejsFunction(this, 'MyFunction', {
   entry: 'src/index.ts',
-  metafile: true,
+  bundling: {
+    // ...
+    metafile: true,
+  }
 });
 ```
 
